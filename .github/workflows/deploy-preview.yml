@@ -10,6 +10,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Get PR number
         id: get_pull_request_sha
         run: |
@@ -30,10 +35,13 @@ jobs:
       - name: Run Prisma Migrate
         run: |
           touch .env
-          echo DATABASE_URL=${{ steps.create_branch.outputs.db_url_with_pooler}}/neondb >> .env
+          echo DATABASE_URL=${{ steps.create_branch.outputs.db_url_with_pooler}}/neondb?pgbouncer=true&connect_timeout=10 >> .env
           echo DIRECT_DATABASE_URL=${{ steps.create_branch.outputs.db_url}}/neondb >> .env
+          echo SHADOW_DATABASE_URL=${{ steps.create_branch.outputs.db_url}}/neondb >> .env
           npx prisma generate
+          npx prisma db push --force-reset
           npx prisma migrate deploy
+          npx prisma db see
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
