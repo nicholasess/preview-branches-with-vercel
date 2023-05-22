@@ -39,19 +39,19 @@ const elements = [
     atomicNumber: 7,
   },
   {
-    elementName: 'Oxygen',
-    symbol: 'O',
+    elementName: 'Carlos',
+    symbol: 'C',
     atomicNumber: 8,
   },
   {
-    elementName: 'Fluorine',
-    symbol: 'F',
+    elementName: 'Nicholas',
+    symbol: 'N',
     atomicNumber: 9,
   },
 
   {
-    elementName: 'Neon',
-    symbol: 'Ne',
+    elementName: 'Gabriel',
+    symbol: 'GB',
     atomicNumber: 10,
   },
 ];
